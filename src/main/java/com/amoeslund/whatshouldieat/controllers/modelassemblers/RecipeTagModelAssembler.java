@@ -2,7 +2,7 @@ package com.amoeslund.whatshouldieat.controllers.modelassemblers;
 
 import com.amoeslund.whatshouldieat.controllers.RecipeController;
 import com.amoeslund.whatshouldieat.controllers.TagsController;
-import com.amoeslund.whatshouldieat.models.RecipeDto;
+import com.amoeslund.whatshouldieat.models.Recipe;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -16,19 +16,20 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class RecipeTagModelAssembler implements RepresentationModelAssembler<RecipeTag, EntityModel<RecipeDto.RecipeTagDto>> {
+public class RecipeTagModelAssembler implements RepresentationModelAssembler<RecipeTag, EntityModel<Recipe.RecipeTag>> {
 
     @Override
-    public EntityModel<RecipeDto.RecipeTagDto> toModel(RecipeTag entity) {
-        RecipeDto.RecipeTagDto tagDto = new RecipeDto.RecipeTagDto(entity.getTag());
+    public EntityModel<Recipe.RecipeTag> toModel(RecipeTag entity) {
+        Recipe.RecipeTag tagDto = new Recipe.RecipeTag(entity.getTag());
         return EntityModel.of(tagDto,
-                linkTo(methodOn(RecipeController.class).byTags(List.of(tagDto.getTag()))).withSelfRel(),
+                linkTo(methodOn(RecipeController.class).byTags(List.of(tagDto.tag()))).withSelfRel(),
+                linkTo(methodOn(RecipeController.class).randomByTags(List.of(tagDto.tag()))).withRel("random recipe by tag"),
                 linkTo(methodOn(TagsController.class).all()).withRel("tags"));
     }
 
     @Override
-    public CollectionModel<EntityModel<RecipeDto.RecipeTagDto>> toCollectionModel(Iterable<? extends RecipeTag> entities) {
-        List<EntityModel<RecipeDto.RecipeTagDto>> tags = new ArrayList<>();
+    public CollectionModel<EntityModel<Recipe.RecipeTag>> toCollectionModel(Iterable<? extends RecipeTag> entities) {
+        List<EntityModel<Recipe.RecipeTag>> tags = new ArrayList<>();
         for (RecipeTag entity : entities) {
             tags.add(toModel(entity));
         }

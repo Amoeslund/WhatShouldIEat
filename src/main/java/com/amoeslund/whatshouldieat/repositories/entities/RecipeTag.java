@@ -13,8 +13,6 @@ import java.util.Collection;
 @JsonIgnoreProperties({"recipes"})
 
 public class RecipeTag {
-
-
     @Id
     @NotNull
     private String tag;

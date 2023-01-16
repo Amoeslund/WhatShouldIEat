@@ -1,7 +1,7 @@
 package com.amoeslund.whatshouldieat.controllers;
 
 import com.amoeslund.whatshouldieat.controllers.modelassemblers.RecipeTagModelAssembler;
-import com.amoeslund.whatshouldieat.models.RecipeDto;
+import com.amoeslund.whatshouldieat.models.Recipe;
 import com.amoeslund.whatshouldieat.repositories.RecipeTagRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -21,7 +21,7 @@ public class TagsController {
     }
 
     @GetMapping("/tags")
-    public CollectionModel<EntityModel<RecipeDto.RecipeTagDto>> all() {
+    public CollectionModel<EntityModel<Recipe.RecipeTag>> all() {
         return assembler.toCollectionModel(recipeTagRepository.findAll());
     }
 }
