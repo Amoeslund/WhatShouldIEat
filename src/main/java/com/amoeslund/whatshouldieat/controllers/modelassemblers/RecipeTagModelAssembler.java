@@ -23,7 +23,7 @@ public class RecipeTagModelAssembler implements RepresentationModelAssembler<Rec
         Recipe.RecipeTag tagDto = new Recipe.RecipeTag(entity.getTag());
         return EntityModel.of(tagDto,
                 linkTo(methodOn(RecipeController.class).byTags(List.of(tagDto.tag()))).withSelfRel(),
-                linkTo(methodOn(RecipeController.class).randomByTags(List.of(tagDto.tag()))).withRel("random recipe by tag"),
+                linkTo(methodOn(RecipeController.class).randomByTags(List.of(tagDto.tag()))).withRel("randomByTag"),
                 linkTo(methodOn(TagsController.class).all()).withRel("tags"));
     }
 
