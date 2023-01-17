@@ -7,25 +7,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public final class Recipe implements Serializable {
+public record Recipe(Long id, String name, List<RecipeStat> recipeStats, String image,
+                     List<EntityModel<RecipeTag>> recipeTags, String url) implements Serializable {
     @Serial
     private static final long serialVersionUID = 0L;
-    private final Long id;
-    private final String name;
-    private final List<RecipeStat> recipeStats;
-    private final String image;
-    private final List<EntityModel<RecipeTag>> recipeTags;
-    private final String url;
-
-    public Recipe(Long id, String name, List<RecipeStat> recipeStats, String image,
-                  List<EntityModel<RecipeTag>> recipeTags, String url) {
-        this.id = id;
-        this.name = name;
-        this.recipeStats = recipeStats;
-        this.image = image;
-        this.recipeTags = recipeTags;
-        this.url = url;
-    }
 
     public long getId() {
         return id;
@@ -58,43 +43,12 @@ public final class Recipe implements Serializable {
                 "url = " + url + ")";
     }
 
-    public Long id() {
-        return id;
-    }
 
-    public String name() {
-        return name;
-    }
+    public record RecipeStat(String label, String description) implements Serializable {
+            @Serial
+            private static final long serialVersionUID = 0L;
 
-    public List<RecipeStat> recipeStats() {
-        return recipeStats;
-    }
-
-    public String image() {
-        return image;
-    }
-
-    public List<EntityModel<RecipeTag>> recipeTags() {
-        return recipeTags;
-    }
-
-    public String url() {
-        return url;
-    }
-
-
-    public static final class RecipeStat implements Serializable {
-        @Serial
-        private static final long serialVersionUID = 0L;
-        private final String label;
-        private final String description;
-
-        public RecipeStat(String label, String description) {
-            this.label = label;
-            this.description = description;
-        }
-
-            @Override
+        @Override
             public boolean equals(Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
@@ -110,31 +64,13 @@ public final class Recipe implements Serializable {
                         "description = " + description + ")";
             }
 
-        public String label() {
-            return label;
-        }
+    }
 
-        public String description() {
-            return description;
-        }
+    public record RecipeTag(String tag) implements Serializable {
+            @Serial
+            private static final long serialVersionUID = 0L;
 
         @Override
-        public int hashCode() {
-            return Objects.hash(label, description);
-        }
-
-        }
-
-    public static final class RecipeTag implements Serializable {
-        @Serial
-        private static final long serialVersionUID = 0L;
-        private final String tag;
-
-        public RecipeTag(String tag) {
-            this.tag = tag;
-        }
-
-            @Override
             public boolean equals(Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
@@ -148,14 +84,5 @@ public final class Recipe implements Serializable {
                         "tag = " + tag + ")";
             }
 
-        public String tag() {
-            return tag;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(tag);
-        }
-
-        }
+    }
 }

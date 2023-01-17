@@ -1,4 +1,4 @@
-package com.amoeslund.whatshouldieat.webcrawler;
+package com.amoeslund.whatshouldieat.whatshouldieat;
 
 import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
 

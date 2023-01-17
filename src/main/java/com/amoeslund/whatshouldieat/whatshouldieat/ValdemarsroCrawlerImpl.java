@@ -1,8 +1,8 @@
-package com.amoeslund.whatshouldieat.webcrawler;
+package com.amoeslund.whatshouldieat.whatshouldieat;
 
 import com.amoeslund.whatshouldieat.helpers.LoadDatabase;
-import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeStat;
+import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

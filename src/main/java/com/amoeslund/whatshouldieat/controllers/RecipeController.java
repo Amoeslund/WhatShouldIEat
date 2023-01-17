@@ -27,9 +27,7 @@ public class RecipeController {
 
     @GetMapping("/recipes/{id}")
     public EntityModel<Recipe> one(@PathVariable Long id) {
-
-        com.amoeslund.whatshouldieat.repositories.entities.Recipe recipe = recipeService.getRecipe(id).orElseThrow(() -> new RecipeNotFoundException(id));
-        return assembler.toModel(recipe);
+        return assembler.toModel(recipeService.getRecipe(id).orElseThrow(() -> new RecipeNotFoundException(id)));
     }
 
     @GetMapping("/recipes")

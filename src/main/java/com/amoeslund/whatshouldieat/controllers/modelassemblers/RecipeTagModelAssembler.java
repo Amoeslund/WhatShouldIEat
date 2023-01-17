@@ -1,12 +1,13 @@
 package com.amoeslund.whatshouldieat.controllers.modelassemblers;
 
 import com.amoeslund.whatshouldieat.controllers.RecipeController;
-import com.amoeslund.whatshouldieat.controllers.TagsController;
 import com.amoeslund.whatshouldieat.models.Recipe;
+import com.amoeslund.whatshouldieat.controllers.TagsController;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class RecipeTagModelAssembler implements RepresentationModelAssembler<Rec
     public EntityModel<Recipe.RecipeTag> toModel(RecipeTag entity) {
         Recipe.RecipeTag tagDto = new Recipe.RecipeTag(entity.getTag());
         return EntityModel.of(tagDto,
-                linkTo(methodOn(RecipeController.class).byTags(List.of(tagDto.tag()))).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(methodOn(RecipeController.class).byTags(List.of(tagDto.tag()))).withSelfRel(),
                 linkTo(methodOn(RecipeController.class).randomByTags(List.of(tagDto.tag()))).withRel("randomByTag"),
                 linkTo(methodOn(TagsController.class).all()).withRel("tags"));
     }

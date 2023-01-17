@@ -1,12 +1,12 @@
 package com.amoeslund.whatshouldieat.services;
 
+import com.amoeslund.whatshouldieat.repositories.RecipeRepository;
+import com.amoeslund.whatshouldieat.repositories.RecipeTagRepository;
 import com.amoeslund.whatshouldieat.helpers.StringExtensions;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
-import com.amoeslund.whatshouldieat.repositories.RecipeRepository;
 import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
 import com.amoeslund.whatshouldieat.repositories.RecipeStatRepository;
-import com.amoeslund.whatshouldieat.repositories.RecipeTagRepository;
-import com.amoeslund.whatshouldieat.webcrawler.WebCrawler;
+import com.amoeslund.whatshouldieat.whatshouldieat.WebCrawler;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 

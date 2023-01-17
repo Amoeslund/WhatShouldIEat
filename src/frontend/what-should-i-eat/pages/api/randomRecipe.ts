@@ -5,7 +5,7 @@ export const config = {
 }
 
 export default async function handler(req: NextRequest) {
-    return fetch("http://localhost:8080/recipes/random/bytags/Aftensmad", {
+    return fetch("https://what-should-i-eat-375008.ey.r.appspot.com/recipes/random/bytags/Aftensmad", {
         method: req.method,
         redirect: 'manual',
     })
