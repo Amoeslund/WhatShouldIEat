@@ -1,8 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import {Inter} from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import RandomRecipeList from "@/components/recipe";
 import useSWR, {SWRResponse} from "swr";
 import {RecipeListResponse} from "@/lib/types/RecipeListResponse";
 import RecipeList from "@/components/recipeList";
@@ -20,10 +17,6 @@ export default function Home() {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    function refetch() {
-
-    }
-
     return (
         <>
             <Head>
@@ -33,7 +26,6 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main className={styles.main}>
-                <button onClick={refetch}></button>
                 <div className={styles.center}>
                     <RecipeList recipeList={data?._embedded?.recipeList}/>
                 </div>
