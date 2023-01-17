@@ -2,7 +2,6 @@
 
 import useSWR, {SWRResponse} from 'swr'
 import {RecipeListResponse} from "@/lib/types/RecipeListResponse";
-import Image from "next/image";
 import styles from '@/styles/Home.module.css'
 
 // @ts-ignore
@@ -17,12 +16,16 @@ export default function RandomRecipe() {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    const {name, url, image} = data._embedded.recipeList.at(0)!;
+    const recipe = data._embedded.recipeList.at(0)!;
     return (
         <>
             <div className={styles.recipe}>
-                <h1>{name}</h1>
-                <a href={url}> <Image src={image} alt={name} width={500} height={500}></Image></a>
+                <h1>{recipe.name}</h1>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <a href={recipe.url}> <img src={recipe.image} alt={recipe.name} width={800}></img></a>
+                <div>
+                    {recipe.recipeStats.map(x => x.label + ": " + x.description + " ")}
+                </div>
             </div>
         </>
     )
