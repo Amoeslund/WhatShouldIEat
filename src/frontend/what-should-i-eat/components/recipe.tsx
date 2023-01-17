@@ -2,21 +2,27 @@
 
 import {Recipe} from "@/lib/types/RecipeListResponse";
 import styles from '@/styles/Home.module.css'
+import RecipeStatComponent from "@/components/recipeStat";
 
 type RecipeProps = {
     recipe: Recipe
 }
+
 export default function RecipeComponent({recipe}: RecipeProps) {
     return <>
         <div className={styles.recipe}>
             <h2>{recipe.name}</h2>
-            <div>
-                {recipe.recipeStats.map(x => x.label + ": " + x.description + " ")}
+            <div className={styles.recipeStats}>
+                {recipe.recipeStats.map((r) => (
+                    <RecipeStatComponent key={r.label} recipeStat={r}/>
+                ))}
             </div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <a className={styles.recipeImage} href={recipe.url}> <img src={recipe.image} alt={recipe.name}
-                                                                      width={500}></img></a>
-
+            <div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <a className={styles.recipeImage} href={recipe.url}>
+                    <img className={styles.recipeImage} src={recipe.image} alt={recipe.name}/>
+                </a>
+            </div>
         </div>
     </>
 }
