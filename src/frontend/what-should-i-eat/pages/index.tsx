@@ -2,11 +2,28 @@ import Head from 'next/head'
 import Image from 'next/image'
 import {Inter} from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import RandomRecipe from "@/components/recipe";
+import RandomRecipeList from "@/components/recipe";
+import useSWR, {SWRResponse} from "swr";
+import {RecipeListResponse} from "@/lib/types/RecipeListResponse";
+import RecipeList from "@/components/recipeList";
 
-const inter = Inter({subsets: ['latin']})
+// @ts-ignore
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Home() {
+
+    const {
+        data,
+        error
+    }: SWRResponse<RecipeListResponse> = useSWR(`/api/recipe/random/${5}`, fetcher, {revalidateOnFocus: false})
+
+    if (error) return <div>Failed to load</div>
+    if (!data) return <div>Loading...</div>
+
+    function refetch() {
+
+    }
+
     return (
         <>
             <Head>
@@ -16,19 +33,9 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main className={styles.main}>
-                <div className={styles.description}>
-                    <p>
-                        Created by&nbsp;
-                        <code className={styles.code}><a href={"https://www.linkedin.com/in/amoeslund/"}> Anders
-                            Bøgetoft Moeslund</a></code>
-                    </p>
-                </div>
-
+                <button onClick={refetch}></button>
                 <div className={styles.center}>
-                    <RandomRecipe/>
-                </div>
-                <div>
-
+                    <RecipeList recipeList={data?._embedded?.recipeList}/>
                 </div>
             </main>
         </>
