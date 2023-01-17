@@ -24,6 +24,7 @@
     flex-direction: column;
     margin: 0.2rem auto;
     width: min-content;
+    max-width: 100vh;
     text-align: center;
     position: relative;
 
