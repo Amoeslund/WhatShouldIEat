@@ -67,8 +67,8 @@ public class ValdemarsroCrawlerImpl implements WebCrawler {
 
     private List<RecipeStat> getRecipeStats(Document document) {
         return document.select(".recipe-stat").stream().map(x -> {
-            var label = x.select(".recipe-stat-label").text();
-            var value = x.select("strong").text();
+            String label = x.select(".recipe-stat-label").text();
+            String value = x.select("strong").text();
             return new RecipeStat(label, value);
         }).toList();
     }

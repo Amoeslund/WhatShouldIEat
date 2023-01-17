@@ -12,9 +12,10 @@
     <artifactId>whatshouldieat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>What Should I Eat</name>
+    <packaging>war</packaging>
     <description>A tool to randomly get a recipe. Inspired by https://whatthefuckshouldimakefordinner.com/</description>
     <properties>
-        <java.version>18</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -70,24 +71,20 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.2.0</version>
+                <configuration>
+                    <version>1</version>
+                    <projectId>GCLOUD_CONFIG</projectId>
+                </configuration>
             </plugin>
-            <plugin><!-- don't pack the war  -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-war</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>war-exploded</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>exploded</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
