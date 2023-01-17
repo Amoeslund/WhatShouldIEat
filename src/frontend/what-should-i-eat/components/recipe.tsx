@@ -1,7 +1,7 @@
 // components/layout.js
 
 import useSWR, {SWRResponse} from 'swr'
-import {RecipeListResponse} from "@/pages/lib/types/RecipeListResponse";
+import {RecipeListResponse} from "@/lib/types/RecipeListResponse";
 import Image from "next/image";
 import styles from '@/styles/Home.module.css'
 
