@@ -6,7 +6,11 @@ type RecipeStatProps = {
     recipeStat: RecipeStat
 }
 
+enum TAGS_TO_SHOW {"Tid i alt", }
+
 export default function RecipeStatComponent({recipeStat}: RecipeStatProps) {
+    if (recipeStat.label === "Antal")
+        return <></>
     return <>
         <div>
             <div>
