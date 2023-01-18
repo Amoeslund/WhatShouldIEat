@@ -20,7 +20,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>What should I eat</title>
+                <title>Hvad Skal Jeg Spise</title>
                 <meta name="description" content="Never look through recipe sites again!"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link rel="icon" href="/favicon.ico"/>
