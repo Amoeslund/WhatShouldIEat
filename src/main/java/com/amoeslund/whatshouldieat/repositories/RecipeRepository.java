@@ -1,9 +1,9 @@
 package com.amoeslund.whatshouldieat.repositories;
 
 import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.QueryByExampleExecutor;
+import com.google.cloud.spring.data.firestore.FirestoreReactiveRepository;
 
 
-public interface RecipeRepository extends JpaRepository<Recipe, Long>, QueryByExampleExecutor<Recipe> {
+public interface RecipeRepository extends FirestoreReactiveRepository<Recipe> {
+
 }

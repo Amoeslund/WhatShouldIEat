@@ -1,55 +1,54 @@
 package com.amoeslund.whatshouldieat.services;
 
 import com.amoeslund.whatshouldieat.repositories.RecipeRepository;
-import com.amoeslund.whatshouldieat.repositories.RecipeTagRepository;
 import com.amoeslund.whatshouldieat.helpers.StringExtensions;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
 import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
-import com.amoeslund.whatshouldieat.repositories.RecipeStatRepository;
 import com.amoeslund.whatshouldieat.whatshouldieat.WebCrawler;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class RecipeService {
     private final Collection<WebCrawler> webCrawlers;
     private final RecipeRepository recipeRepository;
-    private final RecipeStatRepository recipeStatRepository;
-    private final RecipeTagRepository recipeTagRepository;
 
-    public RecipeService(Collection<WebCrawler> webCrawlers, RecipeRepository recipeRepository, RecipeStatRepository recipeStatRepository, RecipeTagRepository recipeTagRepository) {
+    public RecipeService(Collection<WebCrawler> webCrawlers, RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
-        this.recipeStatRepository = recipeStatRepository;
-        this.recipeTagRepository = recipeTagRepository;
         this.webCrawlers = webCrawlers;
     }
 
-    public List<Recipe> updateRecipes() {
+    public long updateRecipes() {
 
+        long totalCount = 0;
         for (WebCrawler webCrawler : webCrawlers) {
-            saveRecipes(webCrawler.getPageRecipes());
+            totalCount += saveRecipes(webCrawler.getPageRecipes()).size();
         }
-        return recipeRepository.findAll();
+        return totalCount;
     }
 
     private List<Recipe> saveRecipes(List<Recipe> recipes) {
-        recipeStatRepository.saveAll(recipes.stream().flatMap(x -> x.getRecipeStats().stream().distinct()).toList());
-        recipeTagRepository.saveAll(recipes.stream().flatMap(x -> x.getRecipeTags().stream().distinct()).toList());
-        return recipeRepository.saveAllAndFlush(recipes);
+        return recipeRepository.saveAll(recipes).collect(Collectors.toList()).block();
     }
 
     public List<Recipe> getRecipes() {
-        return recipeRepository.findAll();
+        return recipeRepository.findAll().collect(Collectors.toList()).block();
     }
 
-    public Optional<Recipe> getRecipe(long id) {
-        return recipeRepository.findById(id);
+    public Optional<Recipe> getRecipe(String id) {
+        return recipeRepository.findById(id).blockOptional();
     }
 
     public List<Recipe> getRecipesByTags(List<String> tags) {
-        return recipeRepository.findAll().stream().filter(x -> containsAllTags(tags, x)).toList();
+        return getRecipesByTagsInternal(tags).collect(Collectors.toList());
+    }
+
+    public Stream<Recipe> getRecipesByTagsInternal(List<String> tags) {
+        return recipeRepository.findAll().toStream().filter(x -> containsAllTags(tags, x));
     }
 
     private boolean containsAllTags(@NotNull List<String> tags, Recipe recipe) {
@@ -67,7 +66,7 @@ public class RecipeService {
                         ? (totalRecords / amount)
                         : ((totalRecords / amount) + 1);
         int pageIndex = (int) (Math.random() * totalPages);
-
+        Collections.shuffle(recipesByTags);
         return recipesByTags.subList(pageIndex, pageIndex + amount);
     }
 }

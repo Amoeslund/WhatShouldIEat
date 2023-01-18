@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    gcp:
+      project-id: what-should-i-eat-375008
+      firestore:
+        credentials:
+          location: classpath:serviceaccount.json

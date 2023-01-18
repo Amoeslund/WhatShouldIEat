@@ -1,14 +1,8 @@
 package com.amoeslund.whatshouldieat.repositories.entities;
 
-import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "recipe_stat")
-@IdClass(RecipeStatId.class)
 public class RecipeStat {
-
-    @Id
 
     private String label;
 
@@ -20,10 +14,7 @@ public class RecipeStat {
         return label;
     }
 
-
-    @Id
     private String description;
-
 
     public void setDescription(String value) {
         this.description = value;
@@ -39,7 +30,6 @@ public class RecipeStat {
     }
 
     public RecipeStat() {
-
     }
 
 

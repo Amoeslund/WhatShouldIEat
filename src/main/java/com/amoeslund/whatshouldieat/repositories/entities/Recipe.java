@@ -1,21 +1,19 @@
 package com.amoeslund.whatshouldieat.repositories.entities;
 
-import javax.persistence.*;
+import com.google.cloud.firestore.annotation.DocumentId;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "recipe")
 public class Recipe {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+   @DocumentId
+    private String id;
 
     private String name;
 
-    @ManyToMany()
     private List<RecipeStat> recipeStats = new ArrayList<>();
 
     public Recipe() {
@@ -23,11 +21,17 @@ public class Recipe {
     }
 
     public Recipe(String name, String url, String image, List<RecipeTag> tags, List<RecipeStat> stats) {
+        this.id = getIdFromUrl(url);
         this.name = name;
         this.url = url;
         this.image = image;
         this.recipeTags = tags;
         this.recipeStats = stats;
+    }
+
+    @NotNull
+    private static String getIdFromUrl(String url) {
+        return Base64.getEncoder().encodeToString(url.getBytes());
     }
 
     public String getImage() {
@@ -39,7 +43,6 @@ public class Recipe {
     }
 
     private String image;
-    @ManyToMany
     private List<RecipeTag> recipeTags = new ArrayList<>();
 
     public String getUrl() {
@@ -69,15 +72,13 @@ public class Recipe {
         return recipeStats;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
-
-
 
 
     public String getName() {

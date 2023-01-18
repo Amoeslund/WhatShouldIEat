@@ -26,7 +26,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/{id}")
-    public EntityModel<Recipe> one(@PathVariable Long id) {
+    public EntityModel<Recipe> one(@PathVariable String id) {
         return assembler.toModel(recipeService.getRecipe(id).orElseThrow(() -> new RecipeNotFoundException(id)));
     }
 
@@ -36,8 +36,8 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/updateall")
-    public CollectionModel<EntityModel<Recipe>> updateAll() {
-        return assembler.toCollectionModel(recipeService.updateRecipes());
+    public String updateAll() {
+        return "Updated " + recipeService.updateRecipes() + " recipes";
     }
 
     //get recipes by tags array
@@ -47,14 +47,12 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/random/{amount}/bytags/{tags}")
-    public CollectionModel<EntityModel<Recipe>> nRandomByTags(@PathVariable int amount, @PathVariable List<String> tags){
+    public CollectionModel<EntityModel<Recipe>> nRandomByTags(@PathVariable int amount, @PathVariable List<String> tags) {
         return assembler.toCollectionModel(recipeService.getNRandomUniqueRecipes(tags, amount));
     }
 
     @GetMapping("/recipes/random/bytags/{tags}")
-    public CollectionModel<EntityModel<Recipe>> randomByTags(@PathVariable List<String> tags){
+    public CollectionModel<EntityModel<Recipe>> randomByTags(@PathVariable List<String> tags) {
         return nRandomByTags(1, tags);
     }
-
-
 }

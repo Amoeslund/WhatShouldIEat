@@ -2,7 +2,7 @@ package com.amoeslund.whatshouldieat.helpers;
 
 public class RecipeNotFoundException extends RuntimeException {
 
-    public RecipeNotFoundException(Long id) {
+    public RecipeNotFoundException(String id) {
         super("Could not find recipe with id " + id);
     }
 }

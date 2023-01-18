@@ -1,6 +1,5 @@
 package com.amoeslund.whatshouldieat.whatshouldieat;
 
-import com.amoeslund.whatshouldieat.helpers.LoadDatabase;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeStat;
 import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
@@ -17,7 +16,7 @@ import java.util.*;
 
 @Service
 public class ValdemarsroCrawlerImpl implements WebCrawler {
-    private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+    private static final Logger log = LoggerFactory.getLogger(ValdemarsroCrawlerImpl.class);
 
     HashSet<String> disallowedTags = new HashSet<>(List.of(".", "Opskrifter"));
 

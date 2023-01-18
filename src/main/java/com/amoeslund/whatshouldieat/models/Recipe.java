@@ -7,12 +7,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public record Recipe(Long id, String name, List<RecipeStat> recipeStats, String image,
+public record Recipe(String id, String name, List<RecipeStat> recipeStats, String image,
                      List<EntityModel<RecipeTag>> recipeTags, String url) implements Serializable {
     @Serial
     private static final long serialVersionUID = 0L;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
