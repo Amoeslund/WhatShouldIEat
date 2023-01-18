@@ -23,7 +23,8 @@
     align-items: center;
     flex-direction: column;
     margin: 0.2rem auto;
-    width: 40vw;
+    width: 25vw;
+    min-width: 20rem;
     text-align: center;
     position: relative;
 }
