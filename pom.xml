@@ -18,6 +18,12 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.squins.google.fork.schema-org-client</groupId>
+            <artifactId>schema-org-client</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>

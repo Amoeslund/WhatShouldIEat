@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-class WebCrawlerImplTest {
+class RecipeFetcherImplTest {
 
     @Test
     void getPageRecipes() {
-        var crawler = new ValdemarsroCrawlerImpl();
+        var crawler = new MadensVerdenRecipeFetcherImpl();
         List<Recipe> recipes = crawler.getPageRecipes();
         recipes
                 .stream()

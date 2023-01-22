@@ -4,6 +4,6 @@ import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
 
 import java.util.List;
 
-public interface WebCrawler {
+public interface RecipeFetcher {
     List<Recipe> getPageRecipes();
 }

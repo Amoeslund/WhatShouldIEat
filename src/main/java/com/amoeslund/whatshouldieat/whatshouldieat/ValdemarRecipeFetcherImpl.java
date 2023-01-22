@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
-public class ValdemarsroCrawlerImpl implements WebCrawler {
-    private static final Logger log = LoggerFactory.getLogger(ValdemarsroCrawlerImpl.class);
+public class ValdemarRecipeFetcherImpl implements RecipeFetcher {
+    private static final Logger log = LoggerFactory.getLogger(ValdemarRecipeFetcherImpl.class);
 
     HashSet<String> disallowedTags = new HashSet<>(List.of(".", "Opskrifter"));
 

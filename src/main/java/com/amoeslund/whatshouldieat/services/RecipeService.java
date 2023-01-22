@@ -4,7 +4,7 @@ import com.amoeslund.whatshouldieat.repositories.RecipeRepository;
 import com.amoeslund.whatshouldieat.helpers.StringExtensions;
 import com.amoeslund.whatshouldieat.repositories.entities.RecipeTag;
 import com.amoeslund.whatshouldieat.repositories.entities.Recipe;
-import com.amoeslund.whatshouldieat.whatshouldieat.WebCrawler;
+import com.amoeslund.whatshouldieat.whatshouldieat.RecipeFetcher;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +14,19 @@ import java.util.stream.Stream;
 
 @Service
 public class RecipeService {
-    private final Collection<WebCrawler> webCrawlers;
+    private final Collection<RecipeFetcher> recipeFetchers;
     private final RecipeRepository recipeRepository;
 
-    public RecipeService(Collection<WebCrawler> webCrawlers, RecipeRepository recipeRepository) {
+    public RecipeService(Collection<RecipeFetcher> recipeFetchers, RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
-        this.webCrawlers = webCrawlers;
+        this.recipeFetchers = recipeFetchers;
     }
 
     public long updateRecipes() {
 
         long totalCount = 0;
-        for (WebCrawler webCrawler : webCrawlers) {
-            totalCount += saveRecipes(webCrawler.getPageRecipes()).size();
+        for (RecipeFetcher recipeFetcher : recipeFetchers) {
+            totalCount += saveRecipes(recipeFetcher.getPageRecipes()).size();
         }
         return totalCount;
     }
