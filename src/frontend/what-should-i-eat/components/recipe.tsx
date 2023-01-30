@@ -19,7 +19,7 @@ export default function RecipeComponent({recipe}: RecipeProps) {
             </div>
             <div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <a className={styles.recipeImage} href={recipe.url}>
+                <a className={styles.recipeImage} href={recipe.url}  target="_blank">
                     <img className={styles.recipeImage} src={recipe.image} alt={recipe.name}/>
                 </a>
             </div>
